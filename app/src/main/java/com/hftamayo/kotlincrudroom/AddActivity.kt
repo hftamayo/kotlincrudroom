@@ -8,10 +8,13 @@ import kotlinx.coroutines.launch
 
 class AddActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddBinding
+    private var user: User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if(user == null) binding.btnAddUser.text = "Add User"
+        else binding.btnAddUser.text = "Update"
 
         binding.btnAddUser.setOnClickListener{ addUser() }
     }
