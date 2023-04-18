@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hftamayo.kotlincrudroom.databinding.ActivityMainBinding
 import kotlinx.coroutines.launch
 
@@ -26,8 +27,13 @@ class MainActivity: AppCompatActivity() {
         super.onResume()
         lifecycleScope.launch {
             val userList = AppDatabase(this@MainActivity).getUserDao().getAllUser()
-            Log.e("from MainActivity", "onResume event length of users list: ${userList.size}")
 
+            binding.recyclerView.apply {
+                layoutManager = LinearLayoutManager(this@MainActivity)
+                adapter = UserAdapter().apply {
+                    setData(userList)
+                }
+            }
         }
     }
 }
