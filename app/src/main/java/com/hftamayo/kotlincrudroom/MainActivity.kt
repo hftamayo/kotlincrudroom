@@ -32,6 +32,11 @@ class MainActivity: AppCompatActivity() {
                 layoutManager = LinearLayoutManager(this@MainActivity)
                 adapter = UserAdapter().apply {
                     setData(userList)
+                    setOnActionEditListener {
+                        val intent = Intent(this@MainActivity, AddActivity::class.java)
+
+                        startActivity(intent)
+                    }
                 }
             }
         }
