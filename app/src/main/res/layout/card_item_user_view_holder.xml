@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#2196F3"
     android:layout_marginTop="4dp"
     android:layout_marginBottom="4dp"
     android:orientation="vertical"
-    android:padding="8dp"
-    >
+    android:padding="8dp">
 
     <TextView
         android:id="@+id/tv_first_name"
@@ -17,7 +21,6 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         tools:text="First Name"
-
         />
 
     <TextView
@@ -27,7 +30,25 @@
         android:textColor="#CBCBCB"
         android:textSize="18sp"
         tools:text="First Name"
+        />
+</LinearLayout>
 
+    <ImageView
+        android:id="@+id/action_delete"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/baseline_delete"
         />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/action_edit"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:layout_toStartOf="@+id/action_delete"
+        android:src="@drawable/ic_edit"
+        />
+</RelativeLayout>
