@@ -14,7 +14,7 @@ class AddActivity : AppCompatActivity() {
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        user = intent.getSerializableExtra("Data") as User
+        user = intent.getSerializableExtra("Data") as? User
 
         if(user == null) binding.btnAddOrUpdateUser.text = "Add User"
         else {
