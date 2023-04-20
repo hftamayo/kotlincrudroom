@@ -34,7 +34,7 @@ class MainActivity: AppCompatActivity() {
                     setData(userList)
                     setOnActionEditListener {
                         val intent = Intent(this@MainActivity, AddActivity::class.java)
-
+                        intent.putExtra("Data", it)
                         startActivity(intent)
                     }
                 }

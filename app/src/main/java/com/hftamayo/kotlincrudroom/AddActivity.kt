@@ -13,10 +13,17 @@ class AddActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        if(user == null) binding.btnAddUser.text = "Add User"
-        else binding.btnAddUser.text = "Update"
 
-        binding.btnAddUser.setOnClickListener{ addUser() }
+        user = intent.getSerializableExtra("Data") as User
+
+        if(user == null) binding.btnAddOrUpdateUser.text = "Add User"
+        else {
+            binding.btnAddOrUpdateUser.text = "Update"
+            binding.edFirstName.setText(user?.firstName.toString())
+            binding.edLastName.setText(user?.lastName.toString())
+        }
+
+        binding.btnAddOrUpdateUser.setOnClickListener{ addUser() }
     }
 
     private fun addUser(){
@@ -24,14 +31,17 @@ class AddActivity : AppCompatActivity() {
         val lastName = binding.edLastName.text.toString()
 
         lifecycleScope.launch {
-            val user = User(firstName = firstName, lastName = lastName)
-            AppDatabase( this@AddActivity).getUserDao().addUser(user)
-            finish()
+            if(user == null){
+                val user = User(firstName = firstName, lastName = lastName)
+                AppDatabase( this@AddActivity).getUserDao().addUser(user)
+                finish()
+            }else {
+                val u = User(firstName, lastName)
+                u.id = user?.id ?: 0
+                AppDatabase(this@AddActivity).getUserDao().updateUser(u)
+                finish()
+
+            }
         }
-
-
-
-
-
     }
 }
