@@ -12,6 +12,7 @@ import org.w3c.dom.Text
 class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewMolder>() {
     private var list = mutableListOf<User>()
     private var actionEdit: ((User) -> Unit)?=null
+    private var actionDelete: ((User) -> Unit)?=null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewMolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_item_user_view_holder, parent, false)
@@ -25,6 +26,7 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewMolder>() {
         holder.tvLastName.text = user.lastName
 
         holder.actionEdit.setOnClickListener{ actionEdit?.invoke(user)}
+        holder.actionDelete.setOnClickListener{actionDelete?.invoke(user)}
     }
 
     override fun getItemCount() = list.size
@@ -34,16 +36,22 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewMolder>() {
             clear()
             addAll(data)
         }
+        notifyDataSetChanged()
     }
 
     fun setOnActionEditListener(callback: (User) -> Unit){
         this.actionEdit = callback
     }
 
+    fun setOnActionDeleteListener(callback: (User) -> Unit){
+        this.actionDelete = callback
+    }
+
     class UserViewMolder(itemView: View): ViewHolder(itemView){
         val tvFirstName: TextView = itemView.findViewById(R.id.tv_first_name)
         val tvLastName: TextView = itemView.findViewById(R.id.tv_last_name)
         val actionEdit: ImageView = itemView.findViewById(R.id.action_edit)
+        val actionDelete: ImageView = itemView.findViewById(R.id.action_delete)
 
     }
 
